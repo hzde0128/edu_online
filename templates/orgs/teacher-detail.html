@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
+{% load static %}
 {% block title %}讲师详情 - 在线教育网{% endblock %}
 
 {% block content %}
@@ -38,7 +38,7 @@
                             </a>
                             <ul class="cont">
                                 <li>工作年限：<span>{{ teacher.work_year }}年</span></li>
-                                <li>就职公司：<span>{{ teacher.work_company }}</span></li>
+                                <li>就职公司：<span>{{ teacher.org.name }}</span></li>
                                 <li>工作职位：<span>{{ teacher.work_position }}</span></li>
                                 <li>教学特点：<span>{{ teacher.work_style }}</span></li>
                             </ul>

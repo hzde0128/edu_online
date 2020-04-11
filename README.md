@@ -1,11 +1,11 @@
 # edu_online 在线教育网
 
-基于Django2和xadmin开发的在线教育网站
+基于Django3和xadmin开发的在线教育网站
 
 ## 开发环境
 
 - Python3.8
-- Django2.2.12
+- Django3
 - Xadmin
 - DjangoUeditor
 
@@ -30,8 +30,15 @@ pip install -r requirements.txt
    python3 manage.py migrate
    ```
 
-3. 运行
+3. 创建管理员账号
+
+   ```bash
+   python manag.py createsuperuser
+   ```
+
+4. 运行
 
    ```bash
    python3 manage.py runserver 
    ```
+

@@ -6,7 +6,7 @@ from django.urls.base import NoReverseMatch
 from django.db import models
 from django.http import HttpResponseRedirect
 from django.template.response import SimpleTemplateResponse, TemplateResponse
-from django.utils import six
+import six
 from django.utils.encoding import force_text, smart_text
 from django.utils.html import escape, conditional_escape
 from django.utils.safestring import mark_safe

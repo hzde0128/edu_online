@@ -8,7 +8,7 @@ from django.forms.models import model_to_dict
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
-from django.utils import six
+import six
 from django.utils.encoding import force_text, smart_text
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst

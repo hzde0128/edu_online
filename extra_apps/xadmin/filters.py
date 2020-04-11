@@ -6,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from django.template.loader import get_template
 from django.template.context import Context
-from django.utils import six
+import six
 from django.utils.safestring import mark_safe
 from django.utils.html import escape, format_html
 from django.utils.text import Truncator

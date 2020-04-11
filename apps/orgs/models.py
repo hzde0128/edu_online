@@ -52,7 +52,6 @@ class TeacherInfo(models.Model):
     age = models.IntegerField(default=30, verbose_name="教师年龄")
     work_year = models.IntegerField(default=3, verbose_name="工作年限")
     work_position = models.CharField(max_length=20, verbose_name="工作职位")
-    work_company = models.CharField(max_length=20, verbose_name="就职公司")
     work_style = models.CharField(max_length=20, verbose_name="教学特点")
     click_num = models.IntegerField(default=0, verbose_name="访问量")
     love_num = models.IntegerField(default=0, verbose_name="收藏人数")

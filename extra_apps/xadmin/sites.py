@@ -4,7 +4,7 @@ from future.utils import iteritems
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.db.models.base import ModelBase
-from django.utils import six
+import six
 from django.views.decorators.cache import never_cache
 from django.template.engine import Engine
 import inspect

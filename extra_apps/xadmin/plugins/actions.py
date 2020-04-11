@@ -5,7 +5,7 @@ from django.db import router
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.template.response import TemplateResponse
-from django.utils import six
+import six
 from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext as _, ungettext

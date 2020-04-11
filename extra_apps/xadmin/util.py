@@ -5,7 +5,8 @@ from django.db.models.sql.query import LOOKUP_SEP
 from django.db.models.deletion import Collector
 from django.db.models.fields.related import ForeignObjectRel
 from django.forms.forms import pretty_name
-from django.utils import formats, six
+from django.utils import formats
+import six
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
 from django.utils.text import capfirst
@@ -21,7 +22,7 @@ import datetime
 import decimal
 
 if 'django.contrib.staticfiles' in settings.INSTALLED_APPS:
-    from django.contrib.staticfiles.templatetags.staticfiles import static
+    from django.templatetags.static import static
 else:
     from django.templatetags.static import static
 

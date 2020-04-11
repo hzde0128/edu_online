@@ -1,0 +1,196 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}公开课评论 - 在线教育网{% endblock %}
+
+{% block mycss %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/guli/base.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/guli/course/learn-less.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/aui.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/mooc.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/guli/course/course-comment.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/guli/course/common-less.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="wp">
+            <div class="crumbs">
+                <ul>
+                    <li><a href="/">首页</a>></li>
+                    <li><a href="{% url 'courses:course_list' %}">公开课程</a>></li>
+                    <li><a href="{% url 'courses:course_detail' course.id %}">课程详情</a>></li>
+                    <li>课程评论</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <div id="main">
+        <div class="course-infos">
+            <div class="w pr">
+                <div style="height: 15px" class="path">
+                </div>
+                <div class="hd">
+                    <h2 class="l">{{ course.name }}</h2>
+                </div>
+                <div class="statics clearfix">
+                    <div class="static-item ">
+                        <span class="meta-value"><strong>{{ course.level }}</strong></span>
+                        <span class="meta">难度</span>
+                        <em></em>
+                    </div>
+                    <div class="static-item static-time">
+                        <span class="meta-value">{{ course.study_time }}分钟</span>
+                        <span class="meta">时长</span>
+                        <em></em>
+                    </div>
+                    <div class="static-item">
+                        <span class="meta-value"><strong>{{ course.study_num }}</strong></span>
+                        <span class="meta">学习人数</span>
+                        <em></em>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="course-info-main clearfix w has-progress">
+
+            <div class="info-bar clearfix">
+                <div class="content-wrap clearfix">
+                    <div class="content">
+                        <div class="mod-tab-menu">
+                            <ul class="course-menu clearfix">
+                                <li><a class="ui-tabs-active " id="learnOn"  href="{% url 'courses:course_video' course.id %}"><span>章节</span></a></li>
+                                <li><a id="commentOn" class="active" href="{% url 'courses:course_comment' course.id %}"><span>评论</span></a></li>
+                            </ul>
+                        </div>
+
+                        <!--发布评论-->
+                        <div id="js-pub-container" class="issques clearfix js-form">
+                            <div class="wgt-ipt-wrap pub-editor-wrap " id="js-pl-input-fake">
+                                <textarea id="js-pl-textarea" class="" placeholder="扯淡、吐槽、表扬、鼓励……想说啥就说啥！" ></textarea>
+                            </div>
+                            <input type="button" id="js-pl-submit" class="pub-btn" data-cid="452" value="发表评论">
+                            <p class="global-errortip js-global-error"></p>
+                        </div>
+                        <div id="course_note">
+                            <ul class="mod-post" id="comment-list">
+                            {% for comment in all_comment %}
+                                <li class="post-row">
+                                    <div class="media">
+                                        <span target="_blank"><img src='/media/{{ comment.comment_man.image }}' width='40' height='40' /></span>
+                                    </div>
+                                    <div class="bd">
+                                        <div class="tit">
+                                            <span target="_blank">{{ comment.comment_man.nick_name }}</span>
+                                        </div>
+                                        <p class="cnt">{{ comment.content }}</p>
+                                        <div class="footer clearfix">
+                                            <span title="创建时间" class="l timeago">时间：{{ comment.add_time }}</span>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        </div>
+
+                    </div>
+
+                    <div class="aside r">
+                        <div class="bd">
+
+                            <div class="box mb40">
+                            <h4>资料下载</h4>
+                            <ul class="downlist">
+                                {% for source in course.sourceinfo_set.all %}
+                                <li>
+                                    <span ><i class="aui-iconfont aui-icon-file"></i>&nbsp;&nbsp;{{ source.name }}</span>
+                                    <a href="/media/{{ source.download }}" class="downcode" target="_blank" download="" data-id="274" title="">下载</a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                            <div class="box mb40">
+                            <h4>讲师提示</h4>
+                            <div class="teacher-info">
+                                <a href="/u/315464/courses?sort=publish" target="_blank">
+                                    <img src='/media/{{ course.teacher.image }}' width='80' height='80' />
+                                </a>
+                                <span class="tit">
+                                  <a href="/u/315464/courses?sort=publish" target="_blank">{{ course.teacher.name }}</a>
+                                </span>
+                                <span class="job">xxx</span>
+                            </div>
+                            <div class="course-info-tip">
+                                <dl class="first">
+                                    <dt>课程须知</dt>
+                                    <dd class="autowrap">{{ course.need_known }}</dd>
+                                </dl>
+                                <dl>
+                                    <dt>老师告诉你能学到什么？</dt>
+                                    <dd class="autowrap">{{ course.teacher_tell }}</dd>
+                                </dl>
+                            </div>
+                        </div>
+
+
+                            <div class="cp-other-learned  js-comp-tabs">
+                                <div class="cp-header clearfix">
+                                    <h2 class="cp-tit l">该课的同学还学过</h2>
+                                </div>
+                                <div class="cp-body">
+                                    <div class="cp-tab-pannel js-comp-tab-pannel" data-pannel="course" style="display: block">
+                                        <!-- img 200 x 112 -->
+                                        <ul class="other-list">
+                                            {% for course in course_list|slice:':5' %}
+                                            <li class="curr">
+                                                <a href="{% url 'courses:course_detail' course.id %}" target="_blank">
+                                                    <img src="/media/{{ course.image }}" alt="html">
+                                                    <span class="name autowrap">{{ course.name }}</span>
+                                                </a>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>    </div>
+                </div>
+                <div class="clear"></div>
+
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block myjs %}
+    <script>
+        $(function () {
+            $('#js-pl-submit').onclick(function () {
+                var course = {{ course.id }};
+                var content = $('#js-pl-textarea').val()
+
+                $.ajax({
+                    url: '{% url "operations:user_comment" %}',
+                    type: 'POST',
+                    data: {
+                        course: course,
+                        content: content,
+                        csrfmiddlewaretoken: '{{ csrf_token }}'
+                    },
+                    success:function (callback) {
+                        if (callback.status == 'ok'){
+                            alert(callback.msg)
+                            // 刷新页面
+                            window.location.reload()
+                        } else {
+                            alert(callback.msg)
+                        }
+                    },
+                })
+            })
+        })
+    </script>
+{% endblock %}

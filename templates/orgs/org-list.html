@@ -1,0 +1,179 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}课程机构列表 - 在线教育网{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="wp">
+            <ul  class="crumbs">
+                <li><a href="/">首页</a>></li>
+                <li>课程机构</li>
+            </ul>
+        </div>
+    </section>
+    <section>
+	<div class="wp butler_list_box list">
+	<div class='left'>
+		<div class="listoptions">
+			<ul>
+				<li>
+					<h2>机构类别</h2>
+					<div class="cont">
+                        <a href="?cat="><span {% if category == '' %}class="active2" {% endif %}>全部</span></a>
+
+                            <a href="?cat=pxjg&city={{ city_id }}&sort={{ sort }}"><span {% if category == 'pxjg' %}class="active2" {% endif %}>培训机构</span></a>
+
+                            <a href="?cat=gx&city={{ city_id }}&sort={{ sort }}"><span {% if category == 'gx' %}class="active2" {% endif %}>高校</span></a>
+
+                            <a href="?cat=gr&city={{ city_id }}&sort={{ sort }}"><span {% if category == 'gr' %}class="active2" {% endif %}>个人</span></a>
+
+					</div>
+				</li>
+				<li>
+					<h2>所在地区</h2>
+					<div class="more">更多</div>
+					<div class="cont">
+                        <a href="?city=&cat={{ category }}&sort={{ sort }}"><span {% if city_id == '' %}class="active2"{% endif %}>全部</span></a>
+                            {% for city in all_citys %}
+                                <a href="?city={{ city.id }}&cat={{ category }}&sort={{ sort }}">
+                                    <span {% if city_id == city.id|stringformat:'i' %}class="active2"{% endif %}>{{ city.name }}</span>
+                                </a>
+                            {% endfor %}
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div class="all">共<span class="key">{{ all_orgs.count }}</span>家</div>
+		<div class="butler_list company list">
+		<div class="layout">
+			<div class="head">
+				<ul class="tab_header">
+					<li {% if sort == '' %}class="active"{% endif %}><a href="?cat={{ category }}&city={{ city_id }}">全部</a> </li>
+					<li {% if sort == 'study_num' %}class="active"{% endif %}><a href="?sort=study_num&cat={{ category }}&city={{ city_id }}">学习人数 &#8595;</a></li>
+					<li {% if sort == 'course_num' %}class="active"{% endif %}><a href="?sort=course_num&cat={{ category }}&city={{ city_id }}">课程数 &#8595;</a></li>
+				</ul>
+			</div>
+                {% for org in pages %}
+                    <dl class="des difdes">
+                    <dt>
+                        <a href="{% url 'orgs:org_detail' org.id %}">
+                            <img width="200" height="120" class="scrollLoading" data-url="/media/{{ org.image }}"/>
+                        </a>
+                    </dt>
+                    <dd>
+                        <div class="clearfix">
+                             <a href="{% url 'orgs:org_detail' org.id %}">
+                                 <h1>{{ org.name }}</h1>
+                                 <div class="pic fl">
+                                         <img src="{% static 'images/authentication.png' %}"/>
+                                         <img src="{% static 'images/gold.png' %}"/>
+
+                                 </div>
+                             </a>
+                        </div>
+                        <ul class="cont">
+                            <li class="first"><p class="pic9">课程数：<span>{{ org.course_num }}</span></p><p class="c7">学习人数：<span>{{ org.study_num }}</span></p></li>
+                            <li class="c8" style="padding-left:18px;">{{ org.address }}</li>
+                            <li class="pic10" style="padding-left:18px;">经典课程：
+                                {% for course in org.courseinfo_set.all|slice:':2' %}
+                                    <a href="#">{{ course.name }}</a>
+                                {% endfor %}
+                            </li>
+                        </ul>
+                    </dd>
+                    <div class="buy start_groupbuy jsShowPerfect2" data-id="22"><br/>联系<br/>服务</div>
+                </dl>
+                {% endfor %}
+
+		</div>
+		 <div class="pageturn">
+            <ul class="pagelist">
+                {% if pages.has_previous %}
+                <li class="long"><a href="?page={{ pages.previous_page_number }}&cat={{ category }}&city={{ city_id }}&sort={{ sort }}&keyword={{ keyword }}">上一页</a></li>
+                {% endif %}
+
+                {% for num in pages.paginator.page_range %}
+                <li {% if num == pages.number %}class="active"{% endif %}><a href="?page={{ num }}&cat={{ category }}&city={{ city_id }}&sort={{ sort }}&keyword={{ keyword }}">{{ num }}</a></li>
+                {% endfor %}
+
+                {% if pages.has_next %}
+                <li class="long"><a href="?page={{ pages.next_page_number }}&cat={{ category }}&city={{ city_id }}&sort={{ sort }}&keyword={{ keyword }}">下一页</a></li>
+                {% endif %}
+
+            </ul>
+        </div>
+		</div>
+	</div>
+	<div class="right companyright">
+			<div class="head">我要学习</div>
+			<form class="rightform" id="jsStayForm">
+				<div>
+                    <img src="{% static 'images/rightform1.png' %}"/>
+                    <input type="text" name="name" id="companyName" placeholder="名字" maxlength="25" />
+                </div>
+				<div>
+                    <img src="{% static 'images/rightform2.png' %}"/>
+                    <input type="text" name="mobile" id="companyMobile" placeholder="联系电话"/>
+                </div>
+				<div>
+                    <img src="{% static 'images/rightform3.png' %}"/>
+                    <input type="text" name="course_name" id="companyAddress" placeholder="课程名" maxlength="50" />
+                </div>
+                <p class="error company-tips" id="jsCompanyTips"></p>
+				<input class="btn" type="text" id="jsStayBtn" value="立即咨询 >" />
+            </form>
+		</div>
+
+		<div class="right companyrank layout">
+			<div class="head">授课机构排名</div>
+            {% for org in sort_orgs %}
+                <dl class="des">
+                    <dt class="num fl">{{ forloop.counter }}</dt>
+                    <dd>
+                        <a href="{% url 'orgs:org_detail' org.id %}"><h1>{{ org.name }}</h1></a>
+                        <p>{{ org.city.name }}</p>
+                    </dd>
+                </dl>
+            {% endfor %}
+		</div>
+        </div>
+</section>
+{% endblock %}
+
+{% block myjs %}
+    <script>
+        $(function () {
+            $('#jsStayBtn').click(function (){
+                {# 如果拿的是非表单元素的值用text() 如果是表单元素用val() #}
+                var name = $('#companyName').val();
+                var phone = $('#companyMobile').val();
+                var course = $('#companyAddress').val()
+                $.ajax({
+                    url: '{% url 'operations:user_ask' %}',
+                    type: 'POST',
+                    data:{
+                        "name": name,
+                        "phone": phone,
+                        "course": course,
+                        "csrfmiddlewaretoken": '{{ csrf_token }}'
+                    },
+                    success: function (callback) {
+                        if(callback.status == 'OK') {
+                            alert(callback.msg)
+                            $('#companyName').val('');
+                            $('#companyMobile').val('');
+                            $('#companyAddress').val('');
+                        } else {
+                            alert(callback.msg)
+                            $('#jsCompanyTips').text(callback.msg)
+                        }
+                    }
+                })
+                return false;
+            })
+        })
+    </script>
+{% endblock %}
+
+
+

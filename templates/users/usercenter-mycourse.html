@@ -1,0 +1,38 @@
+{% extends 'users/usercenter-base.html' %}
+{% block title %}我的课程 - 在线教育网{% endblock %}
+
+{% block breach %}我的课程{% endblock %}
+
+{% block right %}
+    <div class="right" >
+		<div class="personal_des Releasecont">
+			<div class="head">
+				<h1>我的课程</h1>
+			</div>
+		</div>
+
+		<div class="personal_des permessage">
+			<div class="companycenter">
+				<div class="group_list brief">
+                {% for course in my_courses %}
+                    <div class="module1_5 box">
+                            <a href="{% url 'courses:course_detail' course.id %}">
+                                <img width="214" height="190" class="scrollLoading" src="/media/{{ course.image }}"/>
+                            </a>
+                            <div class="des">
+                                <a href="{% url 'courses:course_detail' course.id %}"><h2>{{ course.name }}</h2></a>
+                                <span class="fl">课时：<i class="key">{{ course.study_time }}</i></span>
+                                <span class="fr">学习人数：{{ course.study_num }}</span>
+                            </div>
+                            <div class="bottom">
+                                <span class="fl">{{ course.org.name }}</span>
+                                <span class="star fr  notlogin" data-favid="15">{{ course.love_num }}</span>
+                            </div>
+                        </div>
+                {% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+

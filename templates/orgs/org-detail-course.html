@@ -1,0 +1,39 @@
+{% extends 'orgs/org-detail-base.html' %}
+{% block title %}机构课程列表页{% endblock %}
+
+{% block breach %}机构课程{% endblock %}
+
+{% block right %}
+    <div class="right companycenter layout" >
+		<div class="head">
+			<h1>机构课程</h1>
+		</div>
+		<div class="brief group_list">
+            {% for course in org.courseinfo_set.all %}
+            <div class="module1_5 box">
+                    <a class="comp-img-box" href="{% url 'courses:course_detail' course.id %}">
+
+                        <img width="214" height="195" src="/media/{{ course.image }}"/>
+                    </a>
+                    <div class="des">
+                        <a href="{% url 'courses:course_detail' course.id %}"><h2>{{ course.name }}</h2></a>
+                        <span class="fl">课时：<i class="key">{{ course.study_time }}</i></span>
+                        <span class="fr">学习人数：{{ course.study_num }}</span>
+                    </div>
+                    <div class="bottom">
+                        <span class="fl">{{ org.name }}</span>
+                         <span class="star fr  notlogin
+                            " data-favid="13" data-fav-type="4">
+                            {{ course.love_num }}
+                        </span>
+                    </div>
+                </div>
+            {% endfor %}
+		</div>
+			<div class="pageturn">
+                <ul class="pagelist">
+                    <li class="active"><a href="?page=1">1</a></li>
+                </ul>
+            </div>
+	</div>
+{% endblock %}

@@ -1,0 +1,69 @@
+{% extends 'users/usercenter-base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}我的消息 - 在线教育网{% endblock %}
+
+{% block breach %}我的消息{% endblock %}
+
+{% block right %}
+    <div class="right" >
+		<div class="personal_des Releasecont">
+			<div class="head">
+				<h1>我的消息</h1>
+			</div>
+		</div>
+
+		<div class="personal_des permessage">
+			<div class="head">
+				<ul class="tab_header messagehead">
+					<li class="active"><a href="{% url 'users:user_info_message' %}">个人消息</a> </li>
+				</ul>
+			</div>
+
+			<div class="messagelist">
+                {% for msg in msg_list %}
+                    <div class="messages" msg-id="{{ msg.id }}">
+                        <div class="fr">
+                            <div class="top"><span class="fl time">{{ msg.add_time }}</span><span class="fr btn foldbtn"></span></div>
+                            <p {% if not msg.msg_status %}style="color: black;font-weight: bold" {% endif %} >
+                                {{ msg.msg_content }}
+                            </p>
+                        </div>
+                    </div>
+                {% endfor %}
+			</div>
+
+
+			<div class="pageturn pagerright">
+                <ul class="pagelist">
+                    <li class="active"><a href="?page=1">1</a></li>
+                </ul>
+            </div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block myjs1 %}
+    <script>
+        $(function () {
+            $('.messages').click(function () {
+                var msg_id = $(this).attr('msg-id');
+                $.ajax({
+                    type: 'GET',
+                    url: '{% url 'users:user_info_message_read' %}',
+                    data: {
+                        "msg_id": msg_id,
+                    },
+                    success: function (callback) {
+                        if (callback.status == 'ok') {
+                            window.location.reload()
+                        } else {
+                            alert(callback.msg)
+                        }
+                    }
+                })
+            })
+        })
+    </script>
+{% endblock %}

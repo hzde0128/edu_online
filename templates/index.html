@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block title %}
+    首页 - 在线教育网
+{% endblock %}
+
+{% block content %}
+    <div class="banner">
+			<div class="wp">
+				<div class="fl">
+					<div class="imgslide">
+						<ul class="imgs">
+                            {% for banner in all_banners %}
+                            <li>
+                                <a href="{{ banner.url }}">
+                                    <img width="1200" height="478" src="/media/{{ banner.image }}" />
+                                </a>
+                            </li>
+                            {% endfor %}
+						</ul>
+					</div>
+					<div class="unslider-arrow prev"></div>
+					<div class="unslider-arrow next"></div>
+				</div>
+				</div>
+			</div>
+	<section>
+		<div class="wp">
+			<ul class="feature">
+				<li class="feature1">
+					<img class="pic" src="{% static 'images/feature5.png' %}"/>
+					<p class="center">专业权威</p>
+				</li>
+				<li class="feature2">
+					<img class="pic" src="{% static 'images/feature5.png' %}"/>
+					<p class="center">课程最新</p>
+				</li>
+				<li class="feature3">
+					<img class="pic" src="{% static 'images/feature5.png' %}"/>
+					<p class="center">名师授课</p>
+				</li>
+				<li class="feature4">
+					<img class="pic" src="{% static 'images/feature5.png' %}"/>
+					<p class="center">数据真实</p>
+				</li>
+			</ul>
+		</div>
+	</section>
+	<section>
+		<div class="module">
+			<div class="wp">
+				<h1>公开课程</h1>
+				<div class="module1 eachmod">
+					<div class="module1_1 left">
+						<img width="228" height="614" src="{% static 'images/module5_1.jpg' %}"/>
+						<p class="fisrt_word">名师授课<br/>专业权威</p>
+						<a class="more" href="{% url 'courses:course_list' %}">查看更多课程 ></a>
+					</div>
+					<div class="right group_list">
+						<div class="module1_2 box">
+							<div class="imgslide2">
+								<ul class="imgs">
+                                {% for course in banner_course %}
+                                    <li>
+                                        <a href="{% url 'courses:course_detail' course.id %}">
+                                            <img width="470" height="300" src="/media/{{ course.image }}" />
+                                        </a>
+                                    </li>
+                                {% endfor %}
+								</ul>
+							</div>
+							<div class="unslider-arrow2 prev"></div>
+							<div class="unslider-arrow2 next"></div>
+						</div>
+                            {% for course in all_courses %}
+                            <div class="module1_{{ forloop.counter|add:"2" }} box">
+                                <a href="{% url 'courses:course_detail' course.id %}">
+                                    <img width="233" height="190" src="/media/{{ course.image }}"/>
+                                </a>
+                                <div class="des">
+                                    <a href="{% url 'courses:course_detail' course.id %}">
+                                        <h2 title="{{ course.name }}">{{ course.name }}</h2>
+                                    </a>
+                                    <span class="fl">难度：
+                                        <i class="key">
+                                            {% if course.level == 'gj' %}
+                                                高级
+                                            {% elif course.level == 'zj' %}
+                                                中级
+                                            {% else %}
+                                                初级
+                                            {% endif %}
+                                        </i>
+                                    </span>
+                                    <span class="fr">学习人数：{{ course.study_num }}</span>
+                                </div>
+                                <div class="bottom">
+                                    <span class="fl" title="{{ course.org.name }}">{{ course.org.name }}</span>
+                                    <span class="star fr">{{ course.love_num }}</span>
+                                </div>
+                            </div>
+                            {% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section>
+		<div class="module greybg">
+			<div class="wp">
+				<h1>课程机构</h1>
+				<div class="module3 eachmod">
+					<div class="module3_1 left">
+						<img width="228" height="463" src="{% static 'images/module6_1.jpg' %}"/>
+						<p class="fisrt_word">名校来袭<br/>权威认证</p>
+						<a class="more" href="{% url 'orgs:org_list' %}">查看更多机构 ></a>
+					</div>
+					<div class="right">
+						<ul>
+                            {% for org in all_orgs %}
+                            <li class="five">
+                                    <a href="{% url 'orgs:org_detail' org.id %}">
+                                        <div class="company">
+                                            <img width="184" height="100" src="/media/{{ org.image }}"/>
+                                            <div class="score">
+                                                <div class="circle">
+                                                    <h2>全国知名</h2>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <p><span class="key" title="机构名称">{{ org.name }}</span></p>
+                                    </a>
+                                </li>
+                            {% endfor %}
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}
+
+
+

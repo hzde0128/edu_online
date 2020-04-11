@@ -1,0 +1,105 @@
+{% extends 'users/usercenter-base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}个人中心 - 在线教育网{% endblock %}
+
+{% block breach %}个人资料{% endblock %}
+
+{% block right %}
+    <div class="right">
+        <div class="personal_des ">
+            <div class="head" style="border:1px solid #eaeaea;">
+                <h1>个人信息</h1>
+            </div>
+            <div class="inforcon">
+                <div class="left" style="width:242px;">
+                    <iframe id='frameFile' name='frameFile' style='display: none;'></iframe>
+                    <form class="clearfix" id="jsAvatarForm" enctype="multipart/form-data" autocomplete="off" method="post" action="{% url 'users:avator_upload' %}" target='frameFile'>
+                        {% csrf_token %}
+                        <label class="changearea" for="avatarUp">
+                            <span id="avatardiv" class="pic">
+                                <img width="100" height="100" class="js-img-show" id="avatarShow" src="/media/{{ request.user.image }}"/>
+                            </span>
+                            <span class="fl upload-inp-box" style="margin-left:70px;">
+                                <span class="button btn-green btn-w100" id="jsAvatarBtn">修改头像</span>
+                                <input type="file" name="image" id="avatarUp" class="js-img-up"/>
+                            </span>
+                        </label>
+                    </form>
+                    <div style="border-top:1px solid #eaeaea;margin-top:30px;">
+                        <a class="button btn-green btn-w100" id="jsUserResetPwd" style="margin:80px auto;width:100px;">修改密码</a>
+                    </div>
+                </div>
+
+                    <form class="perinform" id="jsEditUserForm" autocomplete="off">
+                        <ul class="right">
+                            <li>昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：
+                               <input type="text" name="nick_name" id="nick_name" value="{{ request.user.nick_name|default_if_none:'' }}" maxlength="10">
+                                <i class="error-tips"></i>
+                            </li>
+                            <li>生&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日：
+                               <input type="text" id="birth_day" name="birday" value="{{ request.user.birthday|default_if_none:'' }}" readonly="readonly"/>
+                                <i class="error-tips"></i>
+                            </li>
+                            <li>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：
+                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio"  name="gender" value="男" {% if request.user.gender == '男' %}checked="checked"{% endif %}>男</label>
+                                <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="女" {% if request.user.gender == '女' %}checked="checked"{% endif %}>女</label>
+                            </li>
+                            <li class="p_infor_city">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：
+                                <input type="text" name="address" id="address" value="{{ request.user.address|default_if_none:'' }}" maxlength="10">
+                                <i class="error-tips"></i>
+                            </li>
+                            <li>手&nbsp;&nbsp;机&nbsp;&nbsp;号：
+                                <input type="text" name="mobile" id="mobile" value="{{ request.user.phone }}" maxlength="11">
+                            </li>
+                            <li>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：
+                                <input class="borderno" type="text" name="email" readonly="readonly" value="{{ request.user.email }}"/>
+                                <span class="green changeemai_btn">[修改]</span>
+                            </li>
+                            <li class="button heibtn">
+                                <input type="button" id="jsEditUserBtn" value="保存">
+                            </li>
+                        </ul>
+                        <input type='hidden' name='csrfmiddlewaretoken' value='799Y6iPeEDNSGvrTu3noBrO4MBLv6enY' />
+                    </form>
+                </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block myjs1 %}
+    <script src="{% static 'js/deco-user.js' %}"></script>
+    <script>
+    $(function () {
+        $('#jsEditUserBtn').click(function () {
+            var nick_name = $('#nick_name').val();
+            var birthday = $('#birth_day').val();
+            var gender = $(':checked').val();
+            var address = $('#address').val();
+            var phone = $('#mobile').val();
+            $.ajax({
+                url: '{% url 'users:update_info' %}',
+                type: 'POST',
+                data: {
+                    "nick_name": nick_name,
+                    "birthday": birthday,
+                    "gender": gender,
+                    "address": address,
+                    "phone": phone,
+                    "csrfmiddlewaretoken": '{{ csrf_token }}'
+                },
+                success: function(callback) {
+                    if (callback.status == 'ok'){
+                        alert(callback.msg)
+                        window.location.reload()
+                    } else {
+                        alert(callback.msg)
+                    }
+                }
+            })
+        })
+    })
+    </script>
+
+{% endblock %}

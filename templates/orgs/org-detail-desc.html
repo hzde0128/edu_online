@@ -1,0 +1,17 @@
+{% extends 'orgs/org-detail-base.html' %}
+{% block title %}机构介绍{% endblock %}
+
+{% block breach %}机构介绍{% endblock %}
+
+{% block right %}
+    <div class="right companycenter layout" >
+        <div class="head">
+            <h1>机构介绍</h1>
+        </div>
+        <div class="des">
+
+            <p>{{ org.detail|safe }}</p>
+
+        </div>
+    </div>
+{% endblock %}

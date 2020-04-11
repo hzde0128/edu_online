@@ -1,7 +1,7 @@
 import xadmin
 from .models import CourseInfo, LessonInfo, VideoInfo, SourceInfo
 
-# Create your models here.
+
 class CourseInfoXadmin(object):
     list_display = ['name', 'image', 'study_num', 'love_num', 'desc', 'study_num', 'comment_num', 'level',
                     'course_category', 'click_num', 'org', 'teacher']
@@ -21,6 +21,7 @@ class VideoInfoXadmin(object):
 class SourceInfoXadmin(object):
     list_display = ['name', 'download', 'course', 'add_time']
     model_icon = 'fa fa-file-text'
+
 
 xadmin.site.register(CourseInfo, CourseInfoXadmin)
 xadmin.site.register(LessonInfo, LessonInfoXadmin)

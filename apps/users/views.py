@@ -11,14 +11,23 @@ from django.utils import timezone
 from operations.models import UserLove, UserMessage
 from courses.models import CourseInfo
 from orgs.models import OrgInfo, TeacherInfo
+from utils.decorators import login_decorator
 
 
 # Create your views here.
 def handler_404(request, exception=404):
+    """
+    handler_404 自定义404错误
+    只有在Debug == False的时候生效
+    """
     return render(request, 'handler_404.html')
 
 
 def handler_500(request, exception=500):
+    """
+    handler_500 自定义500错误
+    只有在Debug == False的时候生效
+    """
     return render(request, 'handler_500.html')
 
 
@@ -37,6 +46,9 @@ def IndexView(request):
 
 
 def user_register(request):
+    """
+    user_register 用户注册页面展示已经处理
+    """
     if request.method == 'GET':
         # 加载验证码
         user_register_form = UserRegisterForm()
@@ -166,49 +178,52 @@ def user_reset(request, code):
                 })
 
 
+@login_decorator
 def user_info(request):
-    if request.user.is_authenticated:
-        return render(request, 'users/usercenter-info.html')
+    """
+    user_info 用户中心页面显示
+    @params: request: 通过request获取当前用户信息展示
+    """
+    return render(request, 'users/usercenter-info.html')
 
 
+@login_decorator
 def user_info_course(request):
-    if request.user.is_authenticated:
-        usercourse_list = request.user.usercourse_set.all()
-        my_courses = [usercourse.study_course for usercourse in usercourse_list]
-        return render(request, 'users/usercenter-mycourse.html', {
-            'my_courses': my_courses,
-        })
+    usercourse_list = request.user.usercourse_set.all()
+    my_courses = [usercourse.study_course for usercourse in usercourse_list]
+    return render(request, 'users/usercenter-mycourse.html', {
+        'my_courses': my_courses,
+    })
 
 
+@login_decorator
 def user_info_fav_org(request):
-    if request.user.is_authenticated:
-        # 从用户收藏中找出收藏类型为1的对象
-        userlove_orgs = UserLove.objects.filter(love_man=request.user, love_type=1, love_status=True)
-        org_ids = [userlove.love_id for userlove in userlove_orgs]
-        orgs = OrgInfo.objects.filter(id__in=org_ids)
-        return render(request, 'users/usercenter-fav-org.html', {
-            'orgs': orgs,
-        })
+    userlove_orgs = UserLove.objects.filter(love_man=request.user, love_type=1, love_status=True)
+    org_ids = [userlove.love_id for userlove in userlove_orgs]
+    orgs = OrgInfo.objects.filter(id__in=org_ids)
+    return render(request, 'users/usercenter-fav-org.html', {
+        'orgs': orgs,
+    })
 
 
+@login_decorator
 def user_info_fav_course(request):
-    if request.user.is_authenticated:
-        userlove_courses = UserLove.objects.filter(love_man=request.user, love_type=2, love_status=True)
-        courses_ids = [userlove.love_id for userlove in userlove_courses]
-        courses = CourseInfo.objects.filter(id__in=courses_ids)
-        return render(request, 'users/usercenter-fav-course.html', {
-            'courses': courses,
-        })
+    userlove_courses = UserLove.objects.filter(love_man=request.user, love_type=2, love_status=True)
+    courses_ids = [userlove.love_id for userlove in userlove_courses]
+    courses = CourseInfo.objects.filter(id__in=courses_ids)
+    return render(request, 'users/usercenter-fav-course.html', {
+        'courses': courses,
+    })
 
 
+@login_decorator
 def user_info_fav_teacher(request):
-    if request.user.is_authenticated:
-        userlove_teacher = UserLove.objects.filter(love_man=request.user, love_type=3, love_status=True)
-        teacher_ids = [userlove.love_id for userlove in userlove_teacher]
-        teachers = TeacherInfo.objects.filter(id__in=teacher_ids)
-        return render(request, 'users/usercenter-fav-teacher.html', {
-            'teachers': teachers,
-        })
+    userlove_teacher = UserLove.objects.filter(love_man=request.user, love_type=3, love_status=True)
+    teacher_ids = [userlove.love_id for userlove in userlove_teacher]
+    teachers = TeacherInfo.objects.filter(id__in=teacher_ids)
+    return render(request, 'users/usercenter-fav-teacher.html', {
+        'teachers': teachers,
+    })
 
 
 def user_info_message(request):
@@ -322,6 +337,9 @@ def update_email(request):
 
 
 def reset_email(request):
+    """
+    reset_email 重置用户密码处理
+    """
     reset_email_form = ResetEmailForm(request.POST)
     if reset_email_form.is_valid():
         email = reset_email_form.cleaned_data['email']

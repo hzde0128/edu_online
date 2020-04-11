@@ -18,7 +18,7 @@ class UserLove(models.Model):
         return self.love_man.username
 
     class Meta:
-        db_table = 'gl_fav_info'
+        db_table = 'edu_favourites'
         verbose_name = '收藏信息'
         verbose_name_plural = verbose_name
 
@@ -32,7 +32,7 @@ class UserCourse(models.Model):
         return self.study_man.username
 
     class Meta:
-        db_table = 'gl_user_course_info'
+        db_table = 'edu_usercourses'
         unique_together = ('study_man', 'study_course')
         verbose_name = '用户学习课程信息'
         verbose_name_plural = verbose_name
@@ -48,7 +48,7 @@ class UserAsk(models.Model):
         return self.name
 
     class Meta:
-        db_table = 'gl_user_ask_info'
+        db_table = 'edu_userasks'
         verbose_name = '用户咨询信息'
         verbose_name_plural = verbose_name
 
@@ -63,7 +63,7 @@ class UserComment(models.Model):
         return self.content
 
     class Meta:
-        db_table = 'gl_user_comment_info'
+        db_table = 'edu_usercomments'
         verbose_name = '用户评论信息'
         verbose_name_plural = verbose_name
 
@@ -78,6 +78,6 @@ class UserMessage(models.Model):
         return self.msg_content
 
     class Meta:
-        db_table = 'gl_user_message_info'
+        db_table = 'edu_usermessages'
         verbose_name = '用户消息信息'
         verbose_name_plural = verbose_name

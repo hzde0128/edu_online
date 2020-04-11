@@ -1,8 +1,7 @@
 from datetime import datetime
-
 from django.db import models
-
 from orgs.models import OrgInfo, TeacherInfo
+from DjangoUeditor.models import UEditorField
 
 
 # Create your models here.
@@ -12,7 +11,14 @@ class CourseInfo(models.Model):
     study_time = models.IntegerField(default=0, verbose_name="学习时长")
     love_num = models.IntegerField(default=0, verbose_name="收藏数")
     desc = models.CharField(max_length=300, verbose_name="课程简介")
-    detail = models.TextField(verbose_name="课程详情")
+    detail = UEditorField(verbose_name="课程详情",
+                          width=800,
+                          height=480,
+                          toolbars='full',
+                          imagePath='ueditor/images/',
+                          filePath='ueditor/files/',
+                          upload_settings={'imageMaxSizing': 1024000},
+                          default='')
     study_num = models.IntegerField(default=0, verbose_name="学习人数")
     comment_num = models.IntegerField(default=0, verbose_name="评论数")
     level = models.CharField(choices=(('初级', '初级'), ('中级', '中级'), ('高级', '高级')), max_length=10, verbose_name="课程难度",
@@ -32,7 +38,7 @@ class CourseInfo(models.Model):
         return self.name
 
     class Meta:
-        db_table = 'gl_course_info'
+        db_table = 'edu_courses'
         verbose_name = '课程信息'
         verbose_name_plural = verbose_name
 
@@ -46,7 +52,7 @@ class LessonInfo(models.Model):
         return self.name
 
     class Meta:
-        db_table = 'gl_lesson_info'
+        db_table = 'edu_lessons'
         verbose_name = '章节信息'
         verbose_name_plural = verbose_name
 
@@ -62,7 +68,7 @@ class VideoInfo(models.Model):
         return self.name
 
     class Meta:
-        db_table = 'gl_video_info'
+        db_table = 'edu_videos'
         verbose_name = '视频信息'
         verbose_name_plural = verbose_name
 
@@ -77,6 +83,6 @@ class SourceInfo(models.Model):
         return self.name
 
     class Meta:
-        db_table = 'gl_source_info'
+        db_table = 'edu_sources'
         verbose_name = '资源信息'
         verbose_name_plural = verbose_name

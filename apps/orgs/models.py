@@ -2,7 +2,7 @@ from django.db import models
 from datetime import datetime
 from DjangoUeditor.models import UEditorField
 
-# Create your models here.
+
 class CityInfo(models.Model):
     name = models.CharField(max_length=20, verbose_name="城市名称")
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
@@ -11,7 +11,7 @@ class CityInfo(models.Model):
         return self.name
 
     class Meta:
-        db_table = 'gl_city_info'
+        db_table = 'edu_citys'
         verbose_name = "城市信息"
         verbose_name_plural = verbose_name
 
@@ -23,7 +23,6 @@ class OrgInfo(models.Model):
     address = models.CharField(max_length=200, verbose_name="机构地址")
     org_category = models.CharField(choices=(('gr', '个人'), ('gx', '高校'), ('pxjg', '培训机构')), max_length=16, verbose_name="机构类别",default='培训机构')
     desc = models.CharField(max_length=300, verbose_name="机构简介")
-    # detail = models.TextField(verbose_name="机构详情")
     detail = UEditorField(verbose_name="机构详情",
                           width=800,
                           height=480,
@@ -42,7 +41,7 @@ class OrgInfo(models.Model):
         return self.name
 
     class Meta:
-        db_table = 'gl_org_info'
+        db_table = 'edu_orgs'
         verbose_name = '机构信息'
         verbose_name_plural = verbose_name
 
@@ -64,7 +63,7 @@ class TeacherInfo(models.Model):
         return self.name
 
     class Meta:
-        db_table = 'gl_teacher_info'
+        db_table = 'edu_teachers'
         verbose_name = '教师信息'
         verbose_name_plural = verbose_name
 

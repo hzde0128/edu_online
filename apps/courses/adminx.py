@@ -6,6 +6,7 @@ class CourseInfoXadmin(object):
     list_display = ['name', 'image', 'study_num', 'love_num', 'desc', 'study_num', 'comment_num', 'level',
                     'course_category', 'click_num', 'org', 'teacher']
     model_icon = 'fa fa-film'
+    style_fields = {'detail': 'ueditor'}
 
 
 class LessonInfoXadmin(object):

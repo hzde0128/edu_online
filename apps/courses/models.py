@@ -14,7 +14,7 @@ class CourseInfo(models.Model):
     detail = UEditorField(verbose_name="课程详情",
                           width=800,
                           height=480,
-                          toolbars='full',
+                          toolbars='normal',
                           imagePath='ueditor/images/',
                           filePath='ueditor/files/',
                           upload_settings={'imageMaxSizing': 1024000},
@@ -41,6 +41,7 @@ class CourseInfo(models.Model):
         db_table = 'edu_courses'
         verbose_name = '课程信息'
         verbose_name_plural = verbose_name
+        ordering = ['-add_time']
 
 
 class LessonInfo(models.Model):

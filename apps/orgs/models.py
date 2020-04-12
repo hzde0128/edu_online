@@ -26,7 +26,7 @@ class OrgInfo(models.Model):
     detail = UEditorField(verbose_name="机构详情",
                           width=800,
                           height=480,
-                          toolbars='full',
+                          toolbars='normal',
                           imagePath='ueditor/images/',
                           filePath='ueditor/files/',
                           upload_settings={'imageMaxSizing': 1024000},

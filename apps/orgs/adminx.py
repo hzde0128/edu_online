@@ -13,9 +13,10 @@ class OrgInfoXadmin(object):
     model_icon = 'fa fa-sitemap'
     style_fields = {'detail': 'ueditor'}
 
+
 class TeacherInfoXadmin(object):
     list_display = ['name', 'image', 'age', 'work_year', 'work_position', 'work_style', 'click_num', 'love_num', 'org', 'add_time']
-    model_icon = 'fa fa-user-o'
+    model_icon = 'fa fa-leaf'
 
 
 xadmin.site.register(CityInfo, CityInfoXadmin)

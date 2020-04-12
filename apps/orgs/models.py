@@ -53,6 +53,7 @@ class OrgInfo(models.Model):
         db_table = 'edu_orgs'
         verbose_name = '机构信息'
         verbose_name_plural = verbose_name
+        ordering = ['-add_time']
 
 
 class TeacherInfo(models.Model):
@@ -77,4 +78,5 @@ class TeacherInfo(models.Model):
         db_table = 'edu_teachers'
         verbose_name = '教师信息'
         verbose_name_plural = verbose_name
+        ordering = ['-add_time']
 

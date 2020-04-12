@@ -1,5 +1,7 @@
 from django.conf.urls import url
-from .views import org_list, org_detail, org_detail_course, org_detail_desc, org_detail_teacher, teacher_list, teacher_detail
+
+from .views import org_list, org_detail, org_detail_course, org_detail_desc, \
+    org_detail_teacher, teacher_list, teacher_detail
 
 urlpatterns = [
     url(r'org_list/$', org_list, name='org_list'),

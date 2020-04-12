@@ -1,12 +1,16 @@
 from django.shortcuts import render, redirect, reverse
-from .models import OrgInfo, CityInfo, TeacherInfo
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from operations.models import UserLove
 from django.db.models import Q
+
+from .models import OrgInfo, CityInfo, TeacherInfo
+from operations.models import UserLove
 
 
 # Create your views here.
 def org_list(request):
+    """
+    org_list 机构列表展示
+    """
     if request.method == 'GET':
         all_orgs = OrgInfo.objects.all()
         all_citys = CityInfo.objects.all()
@@ -55,6 +59,12 @@ def org_list(request):
 
 
 def org_detail(request, org_id):
+    """
+    org_detail 机构详情页
+    用户点击机构详情页，点击数+1
+    当用户登录时显示用户收藏状态信息
+    @params org_id: 机构id 通过查询数据库找到对应的机构进行展示
+    """
     if org_id:
         org = OrgInfo.objects.filter(id=int(org_id))[0]
 
@@ -77,6 +87,9 @@ def org_detail(request, org_id):
 
 
 def org_detail_course(request, org_id):
+    """
+    org_detail_course 机构详情页-机构课程
+    """
     if org_id:
         org = OrgInfo.objects.filter(id=int(org_id))[0]
         love_status = False
@@ -93,6 +106,9 @@ def org_detail_course(request, org_id):
 
 
 def org_detail_desc(request, org_id):
+    """
+    org_detail_desc 机构详情页-机构描述
+    """
     if org_id:
         org = OrgInfo.objects.filter(id=int(org_id))[0]
         love_status = False
@@ -109,6 +125,9 @@ def org_detail_desc(request, org_id):
 
 
 def org_detail_teacher(request, org_id):
+    """
+    org_detail_teacher 机构详情页-机构讲师
+    """
     if org_id:
         org = OrgInfo.objects.filter(id=int(org_id))[0]
         love_status = False
@@ -125,6 +144,9 @@ def org_detail_teacher(request, org_id):
 
 
 def teacher_list(request):
+    """
+    teacher_list 讲师列表
+    """
     all_teachers = TeacherInfo.objects.all()
     recommend = all_teachers.order_by('-love_num')[:2]
 
@@ -158,12 +180,15 @@ def teacher_list(request):
 
 
 def teacher_detail(request, teacher_id):
+    """
+    teacher_detail 讲师详情
+    """
     if teacher_id:
         teacher_list = TeacherInfo.objects.filter(id=teacher_id)
         if teacher_list:
             teacher = teacher_list[0]
 
-        teacher.click_num +=1
+        teacher.click_num += 1
         teacher.save()
 
         # 讲师排行

@@ -1,7 +1,9 @@
-from users.models import EmailVerifyCode
 from random import randrange
-from admin.settings import EMAIL_FROM
+
 from django.core.mail import send_mail
+
+from admin.settings import EMAIL_FROM
+from users.models import EmailVerifyCode
 
 
 def get_random_code(code_length):

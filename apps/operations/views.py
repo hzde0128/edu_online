@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from .forms import UserAskForm, UserCommentForm
 from django.http import JsonResponse
+
+from .forms import UserAskForm, UserCommentForm
 from .models import UserLove, UserComment
 from orgs.models import OrgInfo, TeacherInfo
 from courses.models import CourseInfo
@@ -9,6 +10,9 @@ from utils.decorators import login_decorator
 
 # Create your views here.
 def user_ask(request):
+    """
+    user_ask 用户咨询
+    """
     user_ask_form = UserAskForm(request.POST)
     if user_ask_form.is_valid():
         # name = user_ask_form.cleaned_data['name']
@@ -22,6 +26,9 @@ def user_ask(request):
 
 @login_decorator
 def user_love(request):
+    """
+    user_love 用户收藏
+    """
     love_id = request.GET.get('love_id', '')
     love_type = request.GET.get('love_type', '')
     print(love_id, love_type)
@@ -65,6 +72,9 @@ def user_love(request):
 
 @login_decorator
 def user_delete_love(request):
+    """
+    user_delete_love 用户取消收藏
+    """
     love_id = request.GET.get('love_id', '')
     love_type = request.GET.get('love_type', '')
     if love_id and love_type:
@@ -81,6 +91,9 @@ def user_delete_love(request):
 
 @login_decorator
 def user_comment(request):
+    """
+    user_comment 课程评论
+    """
     user_comment_form = UserCommentForm(request.POST)
     if user_comment_form.is_valid():
         course = user_comment_form.cleaned_data['course']

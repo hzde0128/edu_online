@@ -1,5 +1,7 @@
 from datetime import datetime
+
 from django.db import models
+
 from orgs.models import OrgInfo, TeacherInfo
 from DjangoUeditor.models import UEditorField
 
@@ -9,7 +11,7 @@ class CourseInfo(models.Model):
     name = models.CharField(max_length=20, verbose_name="课程名称")
     image = models.ImageField(upload_to='courses/%y/%m/%d', verbose_name="课程封面", max_length=200)
     study_time = models.IntegerField(default=0, verbose_name="学习时长")
-    love_num = models.IntegerField(default=0, verbose_name="收藏数")
+    love_num = models.IntegerField(default=0, verbose_name="收藏人数")
     desc = models.CharField(max_length=300, verbose_name="课程简介")
     detail = UEditorField(verbose_name="课程详情",
                           width=800,
@@ -20,7 +22,7 @@ class CourseInfo(models.Model):
                           upload_settings={'imageMaxSizing': 1024000},
                           default='')
     study_num = models.IntegerField(default=0, verbose_name="学习人数")
-    comment_num = models.IntegerField(default=0, verbose_name="评论数")
+    comment_num = models.IntegerField(default=0, verbose_name="评论人数")
     level = models.CharField(choices=(('初级', '初级'), ('中级', '中级'), ('高级', '高级')), max_length=10, verbose_name="课程难度",
                              default='高级')
     course_category = models.CharField(choices=(('前端开发', '前端开发'), ('后端开发', '后端开发')), verbose_name="课程类别", max_length=15,
@@ -64,7 +66,7 @@ class VideoInfo(models.Model):
     url = models.FileField(upload_to='courses/%y/%m/%d', verbose_name="视频链接")
     lesson = models.ForeignKey(LessonInfo, on_delete=models.CASCADE, verbose_name="所属章节")
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
-    
+
     def __str__(self):
         return self.name
 

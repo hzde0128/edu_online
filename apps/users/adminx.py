@@ -27,7 +27,7 @@ class BannerInfoXadmin(object):
     """
     BannerInfoXadmin 后台显示字段列表
     """
-    list_display = ['image', 'url', 'add_time']
+    list_display = ['title', 'image', 'url', 'index', 'add_time']
     model_icon = 'fa fa-picture-o'
 
 

@@ -72,7 +72,7 @@
                             <ul class="video">
                                 {% for video in lesson.videoinfo_set.all %}
                                 <li>
-                                    <a target="_blank" href='{{ video.url }}' class="J-media-item studyvideo">{{ video.name }}[{{ video.study_time }}分钟]
+                                    <a target="_blank" href='/media/{{ video.url }}' class="J-media-item studyvideo">{{ video.name }}[{{ video.study_time }}分钟]
                                         <i class="study-state"></i>
                                     </a>
                                 </li>

@@ -61,10 +61,10 @@ class LessonInfo(models.Model):
 class VideoInfo(models.Model):
     name = models.CharField(max_length=20, verbose_name="视频名称")
     study_time = models.IntegerField(default=0, verbose_name="学习时长")
-    url = models.URLField(max_length=200, verbose_name="视频链接")
+    url = models.FileField(upload_to='courses/%y/%m/%d', verbose_name="视频链接")
     lesson = models.ForeignKey(LessonInfo, on_delete=models.CASCADE, verbose_name="所属章节")
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
-
+    
     def __str__(self):
         return self.name
 

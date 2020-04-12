@@ -18,7 +18,6 @@ from django.conf import settings
 from django.views.static import serve
 # from django.contrib import admin
 import xadmin
-import DjangoUeditor
 from users.views import IndexView
 
 urlpatterns = [

@@ -1,13 +1,16 @@
+from datetime import datetime
+
 from django.shortcuts import render, redirect, reverse, HttpResponse
-from .forms import UserRegisterForm, UserLoginForm, UserForgetForm, UserRegsetForm, UserAvatorForm, UpdateInfoForm, UserEmailForm, ResetEmailForm
-from .models import UserProfile, EmailVerifyCode, BannerInfo
 from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
+from django.http import JsonResponse
+from django.utils import timezone
+from django.contrib.auth.backends import ModelBackend
+
+from .forms import UserRegisterForm, UserLoginForm, UserForgetForm, UserRegsetForm, UserAvatorForm, UpdateInfoForm, UserEmailForm, ResetEmailForm
+from .models import UserProfile, EmailVerifyCode, BannerInfo
 # 发送邮件
 from utils.send_email import send_mail_code
-from django.http import JsonResponse
-from datetime import datetime
-from django.utils import timezone
 from operations.models import UserLove, UserMessage
 from courses.models import CourseInfo
 from orgs.models import OrgInfo, TeacherInfo
@@ -15,6 +18,20 @@ from utils.decorators import login_decorator
 
 
 # Create your views here.
+class AuthBackend(ModelBackend):
+    """
+    AuthBackend 用户自定义登录认证
+    用来同时支持用户名，邮箱，手机号码登录
+    """
+    def authenticate(self, request, username=None, password=None, **kwargs):
+        try:
+            user = UserProfile.objects.get(Q(username=username)|Q(email=username)|Q(phone=username))
+            if user.check_password(password):
+                return user
+        except Exception as e:
+            return None
+
+
 def handler_404(request, exception=404):
     """
     handler_404 自定义404错误
@@ -31,7 +48,7 @@ def handler_500(request, exception=500):
     return render(request, 'handler_500.html')
 
 
-def IndexView(request):
+def index(request):
     all_banners = BannerInfo.objects.all().order_by('-add_time')[:5]
     all_courses = CourseInfo.objects.filter(is_banner=False).order_by('-add_time')
     banner_course = CourseInfo.objects.filter(is_banner=True).order_by('-add_time')
@@ -81,6 +98,9 @@ def user_register(request):
 
 
 def user_login(request):
+    """
+    user_login 用户登录页面展示以及登录处理
+    """
     if request.method == 'GET':
         return render(request, 'users/login.html')
     if request.method == 'POST':
@@ -88,8 +108,6 @@ def user_login(request):
         if user_login_form.is_valid():
             email = user_login_form.cleaned_data['email']
             password = user_login_form.cleaned_data['password']
-            print(email)
-            print(password)
             user = authenticate(username=email, password=password)
             if user:
                 if user.is_start:
@@ -116,6 +134,9 @@ def user_login(request):
 
 
 def user_forget(request):
+    """
+    user_forget 忘记密码页面展示以及处理
+    """
     if request.method == 'GET':
         user_forget_form = UserForgetForm()
         return render(request, 'users/forgetpwd.html', {
@@ -141,6 +162,9 @@ def user_forget(request):
 
 
 def user_reset(request, code):
+    """
+    user_reset 重置用户密码页面以及处理
+    """
     if code:
         if request.method == 'GET':
             return render(request, 'users/password_reset.html', {
@@ -261,6 +285,9 @@ def avator_upload(request):
 
 
 def update_info(request):
+    """
+    update_info 修改用户基础信息
+    """
     update_info_form = UpdateInfoForm(request.POST, instance=request.user)
     if update_info_form.is_valid():
         update_info_form.save(commit=True)
@@ -270,6 +297,9 @@ def update_info(request):
 
 
 def user_logout(request):
+    """
+    user_logout 登出
+    """
     logout(request)
     return redirect(reverse('index'))
 
@@ -339,6 +369,8 @@ def update_email(request):
 def reset_email(request):
     """
     reset_email 重置用户密码处理
+    根据页面输入的用户验证码与数据库中的数据进行校验
+    并设置验证码有效期为5分钟，过期提示用户重新点获取验证码获取
     """
     reset_email_form = ResetEmailForm(request.POST)
     if reset_email_form.is_valid():

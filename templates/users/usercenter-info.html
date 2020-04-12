@@ -47,11 +47,11 @@
                                 <label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="女" {% if request.user.gender == '女' %}checked="checked"{% endif %}>女</label>
                             </li>
                             <li class="p_infor_city">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;址：
-                                <input type="text" name="address" id="address" value="{{ request.user.address|default_if_none:'' }}" maxlength="10">
+                                <input type="text" name="address" id="address" placeholder="请输入您的地址" value="{{ request.user.address|default_if_none:'' }}" maxlength="10">
                                 <i class="error-tips"></i>
                             </li>
                             <li>手&nbsp;&nbsp;机&nbsp;&nbsp;号：
-                                <input type="text" name="mobile" id="mobile" value="{{ request.user.phone }}" maxlength="11">
+                                <input type="text" name="mobile" id="mobile" placeholder="请输入您的手机号码" value="{{ request.user.phone|default_if_none:'' }}" maxlength="11">
                             </li>
                             <li>邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱：
                                 <input class="borderno" type="text" name="email" readonly="readonly" value="{{ request.user.email }}"/>

@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from .models import CourseInfo
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
-from operations.models import UserLove, UserCourse
 from django.db.models import Q
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
+from .models import CourseInfo
+from operations.models import UserLove, UserCourse
 from utils.decorators import login_decorator
 
 

@@ -14,15 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
-from django.conf import settings
+from admin.settings import MEDIA_ROOT
 from django.views.static import serve
 # from django.contrib import admin
+
 import xadmin
-from users.views import IndexView
+from users.views import index
 
 urlpatterns = [
     # url(r'^admin/', admin.site.urls),
-    url(r'^$', IndexView, name='index'),
+    url(r'^$', index, name='index'),
     url(r'^captcha/', include('captcha.urls')),
     url(r'^ueditor/', include('DjangoUeditor.urls')),
     url(r'xadmin/', xadmin.site.urls),
@@ -31,7 +32,7 @@ urlpatterns = [
     url(r'^courses/', include(('courses.urls', 'courses'), namespace='courses.urls')),
     url(r'^operations/', include(('operations.urls', 'operations'), namespace='operations.urls')),
     url(r'media/(?P<path>.*)$', serve,
-        {'document_root': settings.MEDIA_ROOT, }),
+        {'document_root': MEDIA_ROOT, }),
 ]
 
 handler404 = 'users.views.handler_404'

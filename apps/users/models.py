@@ -9,7 +9,7 @@ class UserProfile(AbstractUser):
     UserProfile 集成自AbstractUser
     用户表字段定义
     """
-    image = models.ImageField(upload_to='users/%y/%m/%d', max_length=200, null=True, blank=True, verbose_name="用户头像")
+    image = models.ImageField(upload_to='users/%y/%m/%d', default='default.jpg', max_length=200, verbose_name="用户头像")
     nick_name = models.CharField(max_length=20, verbose_name="用户昵称", null=True, blank=True)
     birthday = models.DateField(null=True, blank=True, verbose_name="用户生日")
     gender = models.CharField(choices=(('男', '男'), ('女', '女')), verbose_name="用户性别", max_length=6, default='男')
@@ -59,10 +59,10 @@ class EmailVerifyCode(models.Model):
     """
     EmailVerifyCode 邮箱验证码表字段定义
     """
-    email = models.EmailField(max_length=50,verbose_name="邮箱")
-    code = models.CharField(max_length=20,verbose_name="验证码")
-    send_type = models.CharField(choices=(('register', '注册激活'), ('forget', '重置密码'), ('change', '修改邮箱')), max_length=15,verbose_name="发送类别")
-    add_time = models.DateTimeField(default=datetime.now,verbose_name="发送时间")
+    email = models.EmailField(max_length=50, verbose_name="邮箱")
+    code = models.CharField(max_length=20, verbose_name="验证码")
+    send_type = models.IntegerField(choices=((1, '注册激活'), (2, '重置密码'), (3, '修改邮箱')), verbose_name="发送类别")
+    add_time = models.DateTimeField(default=datetime.now, verbose_name="发送时间")
 
     def __str__(self):
         return self.code

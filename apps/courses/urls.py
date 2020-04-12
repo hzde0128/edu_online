@@ -1,4 +1,5 @@
 from django.conf.urls import url
+
 from .views import course_list, course_detail, course_video, course_comment
 
 

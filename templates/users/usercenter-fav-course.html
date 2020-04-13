@@ -24,7 +24,7 @@
                 {% for course in courses %}
                     <div class="module1_5 box">
                             <a href="{% url 'courses:course_detail' course.id %}">
-                                <img width="214" height="190" src="/media/{{ course.image }}"/>
+                                <img width="214" height="190" src="{{ MEDIA_URL }}{{ course.image }}"/>
                             </a>
                             <div class="des">
                                 <a href="{% url 'courses:course_detail' course.id %}"><h2>{{ course.name }}</h2></a>

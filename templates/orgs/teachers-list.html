@@ -28,7 +28,7 @@
                             <dt>
                                 <a href="{% url 'orgs:teacher_detail' teacher.id %}">
                                     <div class="picpic">
-                                        <img width="100" height="100" class="scrollLoading" src="/media/{{ teacher.image }}"/>
+                                        <img width="100" height="100" class="scrollLoading" src="{{ MEDIA_URL }}{{ teacher.image }}"/>
                                     </div>
                                 </a>
                                 <div class="btn">
@@ -78,7 +78,7 @@
                         <span class="num fl">1</span>
                         <a href="{% url 'orgs:teacher_detail' teacher.id %}">
                             <dt>
-                                <img width="50" height="50" class="scrollLoading"  src="/media/{{ teacher.image }}"/>
+                                <img width="50" height="50" class="scrollLoading"  src="{{ MEDIA_URL }}{{ teacher.image }}"/>
                             </dt>
                         </a>
                         <dd>

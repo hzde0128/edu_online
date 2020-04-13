@@ -22,7 +22,7 @@
                     <div class="left">
                         <div class="picbox">
                             <div class="tb-booth tb-pic">
-                                <img width="440" height="445" src="/media/{{ course.image }}" class="jqzoom" />
+                                <img width="440" height="445" src="{{ MEDIA_URL }}{{ course.image }}" class="jqzoom" />
                             </div>
 
                         </div>
@@ -40,7 +40,7 @@
                                 <li class="piclist"><span class="pram word4">学习用户：</span>
                                     {% for usercourse in course.usercourse_set.all|slice:':5' %}
                                     <span class="pic">
-                                        <img width="40" height="40" src="/media/{{ usercourse.study_man.image }}"/>
+                                        <img width="40" height="40" src="{{ MEDIA_URL }}{{ usercourse.study_man.image }}"/>
                                     </span>
                                     {% endfor %}
                                 </li>
@@ -62,7 +62,7 @@
                         </div>
                         <div class="pic">
                             <a href="{% url 'orgs:org_detail' course.org.id %}">
-                                <img width="150" height="80" src="/media/{{ course.org.image }}"/>
+                                <img width="150" height="80" src="{{ MEDIA_URL }}{{ course.org.image }}"/>
                             </a>
                         </div>
                         <a href="{% url 'orgs:org_detail' course.org.id %}">
@@ -121,7 +121,7 @@
                             <dl>
                                 <dt>
                                     <a target="_blank" href="">
-                                        <img width="240" height="220" class="scrollLoading" src="/media/{{ course.image }}"/>
+                                        <img width="240" height="220" class="scrollLoading" src="{{ MEDIA_URL }}{{ course.image }}"/>
                                     </a>
                                 </dt>
                                 <dd>

@@ -20,7 +20,7 @@
                     <dl class="des">
                         <dt>
                             <div class="picpic">
-                                <img width="100" height="100" src="/media/{{ teacher.image }}"/>
+                                <img width="100" height="100" src="{{ MEDIA_URL }}{{ teacher.image }}"/>
                             </div>
                             <div class="btn">
                                 <span class="fl btn1 collectionbtn" id="jsLeftBtn">
@@ -58,7 +58,7 @@
                             {% for course in teacher.courseinfo_set.all %}
                             <div class="module1_5 box">
                                 <a href="{% url 'courses:course_detail' course.id %}">
-                                    <img width="214" height="190" class="scrollLoading" src="/media/{{ course.image }}"/>
+                                    <img width="214" height="190" class="scrollLoading" src="{{ MEDIA_URL }}{{ course.image }}"/>
                                 </a>
                                 <div class="des">
                                     <a href="{% url 'courses:course_detail' course.id %}"><h2>{{ course.name }}</h2></a>
@@ -90,7 +90,7 @@
                 </div>
                 <div class="pic">
                     <a href="{% url 'orgs:org_detail' teacher.org.id %}">
-                        <img width="150" height="80" src="/media/{{ teacher.org.image }}"/>
+                        <img width="150" height="80" src="{{ MEDIA_URL }}{{ teacher.org.image }}"/>
                     </a>
                 </div>
                 <a href="{% url 'orgs:org_detail' teacher.org.id %}">
@@ -109,7 +109,7 @@
                             <span class="num fl">1</span>
                             <a href="{% url 'orgs:teacher_detail' teacher.id %}">
                                 <dt>
-                                    <img width="50" height="50" class="scrollLoading" src="/media/{{ teacher.image }}"/>
+                                    <img width="50" height="50" class="scrollLoading" src="{{ MEDIA_URL }}{{ teacher.image }}"/>
                                 </dt>
                             </a>
                             <dd>

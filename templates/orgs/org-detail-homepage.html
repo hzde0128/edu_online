@@ -12,7 +12,7 @@
 		<div class="brief group_list">
         {% for course in org.courseinfo_set.all|slice:':4' %}
             <div class="module1_5 box">
-                    <a href="{% url 'courses:course_detail' course.id %}"><img width="214" src="/media/{{ course.image }}"/></a>
+                    <a href="{% url 'courses:course_detail' course.id %}"><img width="214" src="{{ MEDIA_URL }}{{ course.image }}"/></a>
                     <div class="des">
                         <a href="{% url 'courses:course_detail' course.id %}"><h2>{{ course.name }}</h2></a>
                         <span class="fl">课时：<i class="key">{{ course.study_time }}</i></span>
@@ -39,7 +39,7 @@
     {% for teacher in org.teacherinfo_set.all|slice:':3' %}
         <div class="module5 share company-diary-box" style="padding:10px 0;">
             <div class="left">
-                <img class="pic" src="/media/{{ teacher.image }}"/>
+                <img class="pic" src="{{ MEDIA_URL }}{{ teacher.image }}"/>
                 <p>昵称：{{ teacher.name }}</p>
             </div>
             <div class="right">

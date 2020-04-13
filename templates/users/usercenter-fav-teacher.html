@@ -26,7 +26,7 @@
                     <dl class="des users">
                             <dt>
                                 <a href="{% url 'orgs:teacher_detail' teacher.id %}">
-                                    <img width="100" height="100" src="/media/{{ teacher.image }}"/>
+                                    <img width="100" height="100" src="{{ MEDIA_URL }}{{ teacher.image }}"/>
                                 </a>
                             </dt>
                             <dd>

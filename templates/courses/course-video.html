@@ -72,7 +72,7 @@
                             <ul class="video">
                                 {% for video in lesson.videoinfo_set.all %}
                                 <li>
-                                    <a target="_blank" href='/media/{{ video.url }}' class="J-media-item studyvideo">{{ video.name }}[{{ video.study_time }}分钟]
+                                    <a target="_blank" href='{{ MEDIA_URL }}{{ video.url }}' class="J-media-item studyvideo">{{ video.name }}[{{ video.study_time }}分钟]
                                         <i class="study-state"></i>
                                     </a>
                                 </li>
@@ -92,7 +92,7 @@
                                 {% for source in course.sourceinfo_set.all %}
                                 <li>
                                     <span ><i class="aui-iconfont aui-icon-file"></i>&nbsp;&nbsp;{{ source.name }}</span>
-                                    <a href="/media/{{ source.download }}" class="downcode" target="_blank" download="" data-id="274" title="">下载</a>
+                                    <a href="{{ MEDIA_URL }}{{ source.download }}" class="downcode" target="_blank" download="" data-id="274" title="">下载</a>
                                 </li>
                                 {% endfor %}
                             </ul>
@@ -100,11 +100,11 @@
                         <div class="box mb40">
                             <h4>讲师提示</h4>
                             <div class="teacher-info">
-                                <a href="/u/315464/courses?sort=publish" target="_blank">
-                                    <img src='/media/{{ course.teacher.image }}' width='80' height='80' />
+                                <a href="{% url 'orgs:teacher_detail' course.teacher.id %}" target="_blank">
+                                    <img src='{{ MEDIA_URL }}{{ course.teacher.image }}' width='80' height='80' />
                                 </a>
                                 <span class="tit">
-                                  <a href="/u/315464/courses?sort=publish" target="_blank">{{ course.teacher.name }}</a>
+                                  <a href="{% url 'orgs:teacher_detail' course.teacher.id %}" target="_blank">{{ course.teacher.name }}</a>
                                 </span>
                                 <span class="job">{{ course.teacher.work_position }}</span>
                             </div>
@@ -132,7 +132,7 @@
                                         {% for course in course_list|slice:':5' %}
                                         <li class="curr">
                                             <a href="{% url 'courses:course_detail' course.id %}" target="_blank">
-                                                <img src="/media/{{ course.image }}" >
+                                                <img src="{{ MEDIA_URL }}{{ course.image }}" >
                                                 <span class="name autowrap">{{ course.name }}</span>
                                             </a>
                                         </li>

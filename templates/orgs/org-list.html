@@ -57,7 +57,7 @@
                     <dl class="des difdes">
                     <dt>
                         <a href="{% url 'orgs:org_detail' org.id %}">
-                            <img width="200" height="120" class="scrollLoading" data-url="/media/{{ org.image }}"/>
+                            <img width="200" height="120" class="scrollLoading" data-url="{{ MEDIA_URL }}{{ org.image }}"/>
                         </a>
                     </dt>
                     <dd>

@@ -72,6 +72,7 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.media',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
@@ -134,7 +135,13 @@ USE_L10N = True
 # 关于 django 的时区设置与MySQL 时间相差8小时
 USE_TZ = False
 
+# 使用自定义用户模型
 AUTH_USER_MODEL = 'users.UserProfile'
+
+# 自定义后台认证
+AUTHENTICATION_BACKENDS = [
+    'users.views.AuthBackend',
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.11/howto/static-files/

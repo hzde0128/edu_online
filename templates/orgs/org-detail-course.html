@@ -13,7 +13,7 @@
             <div class="module1_5 box">
                     <a class="comp-img-box" href="{% url 'courses:course_detail' course.id %}">
 
-                        <img width="214" height="195" src="/media/{{ course.image }}"/>
+                        <img width="214" height="195" src="{{ MEDIA_URL }}{{ course.image }}"/>
                     </a>
                     <div class="des">
                         <a href="{% url 'courses:course_detail' course.id %}"><h2>{{ course.name }}</h2></a>

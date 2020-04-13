@@ -13,7 +13,7 @@
                             {% for banner in all_banners %}
                             <li>
                                 <a href="{{ banner.url }}">
-                                    <img width="1200" height="478" src="/media/{{ banner.image }}" />
+                                    <img width="1200" height="478" src="{{ MEDIA_URL }}{{ banner.image }}" />
                                 </a>
                             </li>
                             {% endfor %}
@@ -63,7 +63,7 @@
                                 {% for course in banner_course %}
                                     <li>
                                         <a href="{% url 'courses:course_detail' course.id %}">
-                                            <img width="470" height="300" src="/media/{{ course.image }}" />
+                                            <img width="470" height="300" src="{{ MEDIA_URL }}{{ course.image }}" />
                                         </a>
                                     </li>
                                 {% endfor %}
@@ -75,7 +75,7 @@
                             {% for course in all_courses %}
                             <div class="module1_{{ forloop.counter|add:"2" }} box">
                                 <a href="{% url 'courses:course_detail' course.id %}">
-                                    <img width="233" height="190" src="/media/{{ course.image }}"/>
+                                    <img width="233" height="190" src="{{ MEDIA_URL }}{{ course.image }}"/>
                                 </a>
                                 <div class="des">
                                     <a href="{% url 'courses:course_detail' course.id %}">
@@ -121,7 +121,7 @@
                             <li class="five">
                                     <a href="{% url 'orgs:org_detail' org.id %}">
                                         <div class="company">
-                                            <img width="184" height="100" src="/media/{{ org.image }}"/>
+                                            <img width="184" height="100" src="{{ MEDIA_URL }}{{ org.image }}"/>
                                             <div class="score">
                                                 <div class="circle">
                                                     <h2>全国知名</h2>

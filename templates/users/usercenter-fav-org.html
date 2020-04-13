@@ -27,7 +27,7 @@
                     <dl class="des fr">
                         <dt>
                             <a href="{% url 'orgs:org_detail' org.id %}">
-                                <img width="160" height="90" src="/media/{{ org.image }}"/>
+                                <img width="160" height="90" src="{{ MEDIA_URL }}{{ org.image }}"/>
                             </a>
                         </dt>
                         <dd>

@@ -7,7 +7,8 @@ from django.http import JsonResponse
 from django.utils import timezone
 from django.contrib.auth.backends import ModelBackend
 
-from .forms import UserRegisterForm, UserLoginForm, UserForgetForm, UserRegsetForm, UserAvatorForm, UpdateInfoForm, UserEmailForm, ResetEmailForm
+from .forms import UserRegisterForm, UserLoginForm, UserForgetForm, UserRegsetForm, UserAvatorForm, \
+                   UpdateInfoForm, UserEmailForm, ResetEmailForm
 from .models import UserProfile, EmailVerifyCode, BannerInfo
 # 发送邮件
 from utils.send_email import send_mail_code
@@ -106,11 +107,11 @@ def user_login(request):
     if request.method == 'POST':
         user_login_form = UserLoginForm(request.POST)
         if user_login_form.is_valid():
-            email = user_login_form.cleaned_data['email']
+            username = user_login_form.cleaned_data['username']
             password = user_login_form.cleaned_data['password']
-            user = authenticate(username=email, password=password)
+            user = authenticate(username=username, password=password)
             if user:
-                if user.is_start:
+                if user.is_start or user.is_active:
                     login(request, user)
                     # 登录消息
                     a = UserMessage()

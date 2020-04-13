@@ -6,6 +6,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import JsonResponse
 from django.utils import timezone
 from django.contrib.auth.backends import ModelBackend
+from django.views.generic import View
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 from .forms import UserRegisterForm, UserLoginForm, UserForgetForm, UserRegsetForm, UserAvatorForm, \
                    UpdateInfoForm, UserEmailForm, ResetEmailForm
@@ -26,7 +28,7 @@ class AuthBackend(ModelBackend):
     """
     def authenticate(self, request, username=None, password=None, **kwargs):
         try:
-            user = UserProfile.objects.get(Q(username=username)|Q(email=username)|Q(phone=username))
+            user = UserProfile.objects.get(Q(username=username) | Q(email=username) | Q(phone=username))
             if user.check_password(password):
                 return user
         except Exception as e:
@@ -63,17 +65,18 @@ def index(request):
     })
 
 
-def user_register(request):
+class UserRegister(View):
     """
     user_register 用户注册页面展示已经处理
     """
-    if request.method == 'GET':
+    def get(self, request):
         # 加载验证码
         user_register_form = UserRegisterForm()
         return render(request, 'users/register.html', {
             'user_register_form': user_register_form,
         })
-    if request.method == 'POST':
+
+    def post(self, request):
         user_register_form = UserRegisterForm(request.POST)
         if user_register_form.is_valid():
             email = user_register_form.cleaned_data['email']
@@ -89,7 +92,13 @@ def user_register(request):
                 user = UserProfile(username=email, email=email)
                 user.set_password(password)
                 user.save()
-                # 给用户发送激活邮件
+                """
+                给用户发送激活邮件并发送欢迎注册消息
+                """
+                msg = UserMessage()
+                msg.msg_content = '欢迎注册[在线教育网]，请遵守国家相关法律法规'
+                msg.msg_user = user.id
+                msg.save()
                 send_mail_code(email, 1)
                 return HttpResponse('请尽快前往您的邮箱激活，否则无法登录')
         else:
@@ -98,19 +107,20 @@ def user_register(request):
             })
 
 
-def user_login(request):
-    """
-    user_login 用户登录页面展示以及登录处理
-    """
-    if request.method == 'GET':
+class UserLogin(View):
+    def get(self, request):
         return render(request, 'users/login.html')
-    if request.method == 'POST':
+
+    def post(self, request):
         user_login_form = UserLoginForm(request.POST)
         if user_login_form.is_valid():
             username = user_login_form.cleaned_data['username']
             password = user_login_form.cleaned_data['password']
             user = authenticate(username=username, password=password)
             if user:
+                """"
+                激活用户或者后台管理员允许登录
+                """
                 if user.is_start or user.is_active:
                     login(request, user)
                     # 登录消息
@@ -255,12 +265,24 @@ def user_info_message(request):
     """
     显示用户消息列表
     按照时间倒序排序
+    增加分页显示功能， 每页显示5条
     @params:request 获取当前用户信息，从当前用户找到对应的消息列表
     @return: 返回消息列表给前端展示
     """
     msg_list = UserMessage.objects.filter(msg_user=request.user.id).order_by('-add_time')
+
+    page = request.GET.get('page')
+    pa = Paginator(msg_list, 5)
+    try:
+        pages = pa.page(page)
+    except PageNotAnInteger:
+        pages = pa.page(1)
+    except EmptyPage:
+        pages = pa.page(pa.num_pages)
+
     return render(request, 'users/usercenter-message.html', {
         'msg_list': msg_list,
+        'pages': pages,
     })
 
 

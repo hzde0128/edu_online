@@ -1,12 +1,12 @@
 from django.conf.urls import url
-from .views import user_register, user_login, user_forget, user_logout, user_active, user_reset, \
+from .views import UserRegister, UserLogin, user_forget, user_logout, user_active, user_reset, \
     user_info, avator_upload, update_info, update_email, reset_email, user_info_course, \
     user_info_fav_org, user_info_fav_course, user_info_fav_teacher, user_info_message, \
     user_info_message_read
 
 urlpatterns = [
-    url(r'user_register/$', user_register, name='user_register'),
-    url(r'user_login/$', user_login, name='user_login'),
+    url(r'user_register/$', UserRegister.as_view(), name='user_register'),
+    url(r'user_login/$', UserLogin.as_view(), name='user_login'),
     url(r'user_forget/$', user_forget, name='user_forget'),
     url(r'user_info/$', user_info, name='user_info'),
     url(r'user_info/course$', user_info_course, name='user_info_course'),
@@ -18,7 +18,7 @@ urlpatterns = [
 
     url(r'update_email/$', update_email, name='update_email'),
     url(r'reset_email/$', reset_email, name='reset_email'),
-
+    # 个人中心
     url(r'user_info/fav/org$', user_info_fav_org, name='user_info_fav_org'),
     url(r'user_info/fav/course$', user_info_fav_course, name='user_info_fav_course'),
     url(r'user_info/fav/teacher$', user_info_fav_teacher, name='user_info_fav_teacher'),

@@ -22,7 +22,7 @@
 			</div>
 
 			<div class="messagelist">
-                {% for msg in msg_list %}
+                {% for msg in pages %}
                     <div class="messages" msg-id="{{ msg.id }}">
                         <div class="fr">
                             <div class="top"><span class="fl time">{{ msg.add_time }}</span><span class="fr btn foldbtn"></span></div>
@@ -34,10 +34,20 @@
                 {% endfor %}
 			</div>
 
-
 			<div class="pageturn pagerright">
                 <ul class="pagelist">
-                    <li class="active"><a href="?page=1">1</a></li>
+                    {% if pages.has_previous %}
+                    <li class="long"><a href="?page={{ pages.previous_page_number }}">上一页</a></li>
+                    {% endif %}
+                    {% for num in pages.paginator.page_range %}
+                        {# 当消息比较多当时候控制消息显示当前页码以及前后3页  #}
+                        {% if num <= pages.number|add:3 and num >= pages.number|add:-3 %}
+                        <li {% if pages.number == num %}class="active"{% endif %}><a href="?page={{ num }}">{{ num }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if pages.has_next %}
+                    <li class="long"><a href="?page={{ pages.next_page_number }}">下一页</a></li>
+                    {% endif %}
                 </ul>
             </div>
 		</div>

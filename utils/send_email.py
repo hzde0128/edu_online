@@ -45,7 +45,7 @@ def send_mail_code(email, send_type):
         send_mail(subject, message, EMAIL_FROM, [email])
     if send_type == 3:
         subject == '[在线教育网]更换邮箱'
-        message = '您的邮箱验证码是：' + code
+        message = '您的邮箱验证码是(5分钟内有效)：' + code
         send_mail(subject, message, EMAIL_FROM, [email])
 
 

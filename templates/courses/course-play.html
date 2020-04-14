@@ -8,6 +8,13 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/aui.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/mooc.css' %}"/>
     <link rel="stylesheet" type="text/css" href="{% static 'css/guli/course/common-less.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/video-js.min.css' %}">
+    <style>
+        .video-js {
+            top: 50%;
+
+        }
+    </style>
 {% endblock %}
 {% block content %}
     <section>
@@ -26,27 +33,9 @@
     <div id="main">
 
         <div class="course-infos">
-            <div class="w pr">
-                <div style="height: 15px" class="path"></div>
-                <div class="hd"><h2 class="l">{{ course.name }}</h2></div>
-                <div class="statics clearfix">
-                    <div class="static-item ">
-                        <span class="meta-value"><strong>{{ course.level }}</strong></span>
-                        <span class="meta">难度</span>
-                        <em></em>
-                    </div>
-                    <div class="static-item static-time">
-                        <span class="meta-value">{{ course.study_time }}分钟</span>
-                        <span class="meta">时长</span>
-                        <em></em>
-                    </div>
-                    <div class="static-item">
-                        <span class="meta-value"><strong>{{ course.study_num }}</strong></span>
-                        <span class="meta">学习人数</span>
-                        <em></em>
-                    </div>
-                </div>
-            </div>
+            <video id="my-player" class="video-js vjs-default-skin" autoplay="autoplay" controls preload="auto" style="width:1200px; height: 675px; margin-left: 120px">
+                <source src="{{ MEDIA_URL }}{{ video_url }}">
+            </video>
         </div>
 
         <div class="course-info-main clearfix w has-progress">
@@ -151,6 +140,10 @@
     </div>
 
     </div>
+{% endblock %}
+
+{% block myjs %}
+    <script type="text/javascript" src="{% static 'js/video.min.js' %}"></script>
 {% endblock %}
 
 

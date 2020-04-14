@@ -81,7 +81,8 @@
                                     </div>
                                     <div class="bd">
                                         <div class="tit">
-                                            <span target="_blank">{{ comment.comment_man.nick_name }}</span>
+                                            {# 用户昵称不存在则显示用户名 #}
+                                            <span target="_blank">{% if comment.comment_man.nick_name %}{{ comment.comment_man.nick_name }}{% else %}{{ comment.comment_man.username }}{% endif %}</span>
                                         </div>
                                         <p class="cnt">{{ comment.content }}</p>
                                         <div class="footer clearfix">

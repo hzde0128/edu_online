@@ -26,7 +26,7 @@ class UserAsk(View):
             return JsonResponse({"status": 'FAIL', 'msg': '咨询失败'})
 
 
-class UserLove(View):
+class UserFavView(View):
     """
     UserLove 用户收藏
     """
@@ -94,7 +94,7 @@ class UserDeleteLove(View):
             return JsonResponse({'status': 'fail', 'msg': '取消收藏失败'})
 
 
-class UserComment(View):
+class UserCommentView(View):
     """
     user_comment 课程评论
     """

@@ -12,7 +12,7 @@
     <style>
         .video-js {
             top: 50%;
-
+            left: 50%;
         }
     </style>
 {% endblock %}
@@ -33,7 +33,7 @@
     <div id="main">
 
         <div class="course-infos">
-            <video id="my-player" class="video-js vjs-default-skin" autoplay="autoplay" controls preload="auto" style="width:1200px; height: 675px; margin-left: 120px">
+            <video id="my-player" class="video-js vjs-default-skin" autoplay="autoplay" controls preload="auto" style="width:1200px; height: 675px; margin-top: -338px; margin-left: -600px">
                 <source src="{{ MEDIA_URL }}{{ video_url }}">
             </video>
         </div>

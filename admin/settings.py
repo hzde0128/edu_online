@@ -25,7 +25,7 @@ sys.path.insert(0, os.path.join(BASE_DIR, 'extra_apps'))
 SECRET_KEY = 'gosfmij+um909flcr&i^9i$(s_ss!ovqe5re0(c&l3p&z^cy+%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'orgs.apps.OrgsConfig',
     'courses.apps.CoursesConfig',
     'operations.apps.OperationsConfig',
-    'xadmin',
+    'xadmin.apps.XAdminConfig',
     'crispy_forms',
     'captcha',
     'DjangoUeditor',
@@ -149,9 +149,11 @@ AUTHENTICATION_BACKENDS = [
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static'),
+# ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
 

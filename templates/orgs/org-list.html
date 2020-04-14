@@ -72,7 +72,7 @@
                              </a>
                         </div>
                         <ul class="cont">
-                            <li class="first"><p class="pic9">课程数：<span>{{ org.course_num }}</span></p><p class="c7">学习人数：<span>{{ org.study_num }}</span></p></li>
+                            <li class="first"><p class="pic9">课程数：<span>{{ org.courseinfo_set.count }}</span></p><p class="c7">学习人数：<span>{{ org.study_num }}</span></p></li>
                             <li class="c8" style="padding-left:18px;">{{ org.address }}</li>
                             <li class="pic10" style="padding-left:18px;">经典课程：
                                 {% for course in org.courseinfo_set.all|slice:':2' %}

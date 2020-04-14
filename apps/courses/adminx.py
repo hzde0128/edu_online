@@ -2,11 +2,18 @@ import xadmin
 from .models import CourseInfo, LessonInfo, VideoInfo, SourceInfo
 
 
+class SourceInfoInline(object):
+    model = SourceInfo
+    extra = 0
+
+
 class CourseInfoXadmin(object):
     list_display = ['name', 'image', 'study_num', 'love_num', 'desc', 'study_num', 'comment_num', 'level',
                     'course_category', 'click_num', 'org', 'teacher']
     model_icon = 'fa fa-film'
+    readonly_fields = ['study_num', 'love_num', 'click_num', 'comment_num']
     style_fields = {'detail': 'ueditor'}
+    inlines = [SourceInfoInline]
 
 
 class LessonInfoXadmin(object):

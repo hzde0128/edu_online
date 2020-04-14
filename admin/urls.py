@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf.urls import url, include
-from admin.settings import MEDIA_ROOT
+from admin.settings import MEDIA_ROOT, STATIC_ROOT
 from django.views.static import serve
 # from django.contrib import admin
 
@@ -31,8 +31,10 @@ urlpatterns = [
     url(r'^orgs/', include(('orgs.urls', 'orgs'), namespace='orgs.urls')),
     url(r'^courses/', include(('courses.urls', 'courses'), namespace='courses.urls')),
     url(r'^operations/', include(('operations.urls', 'operations'), namespace='operations.urls')),
+    url(r'static/(?P<path>.*)$', serve, {'document_root': STATIC_ROOT, }),
     url(r'media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT, }),
 ]
 
+# 全局错误信息
 handler404 = 'users.views.handler_404'
 handler500 = 'users.views.handler_500'

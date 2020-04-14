@@ -35,20 +35,20 @@ class AuthBackend(ModelBackend):
             return None
 
 
-def handler_404(request, exception=404):
+def handler_404(request, exception=404, template_name='handler_404.html'):
     """
     handler_404 自定义404错误
     只有在Debug == False的时候生效
     """
-    return render(request, 'handler_404.html')
+    return render(request, template_name)
 
 
-def handler_500(request, exception=500):
+def handler_500(request, exception=500, template_name='handler_500.html'):
     """
     handler_500 自定义500错误
     只有在Debug == False的时候生效
     """
-    return render(request, 'handler_500.html')
+    return render(request, template_name)
 
 
 class IndexView(View):

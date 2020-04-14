@@ -40,7 +40,7 @@ class OrgInfo(models.Model):
                           filePath='ueditor/files/',
                           upload_settings={'imageMaxSizing': 1024000},
                           default='')
-    course_num = models.IntegerField(default=0, verbose_name="机构课程数")
+    # course_num = models.IntegerField(default=0, verbose_name="机构课程数")
     click_num = models.IntegerField(default=0, verbose_name="访问量")
     love_num = models.IntegerField(default=0, verbose_name="收藏人数")
     city = models.ForeignKey(CityInfo, verbose_name='所属城市', on_delete=models.CASCADE)

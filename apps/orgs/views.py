@@ -36,7 +36,10 @@ class OrgList(View):
         # 排序
         sort = request.GET.get('sort', '')
         if sort:
-            all_orgs = all_orgs.order_by('-'+sort)
+            if sort == 'course_num':
+                pass
+            else:
+                all_orgs = all_orgs.order_by('-'+sort)
 
         # 分页
         page = request.GET.get('page')

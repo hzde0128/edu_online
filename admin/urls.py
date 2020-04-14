@@ -19,11 +19,11 @@ from django.views.static import serve
 # from django.contrib import admin
 
 import xadmin
-from users.views import index
+from users.views import IndexView
 
 urlpatterns = [
     # url(r'^admin/', admin.site.urls),
-    url(r'^$', index, name='index'),
+    url(r'^$', IndexView.as_view(), name='index'),
     url(r'^captcha/', include('captcha.urls')),
     url(r'^ueditor/', include('DjangoUeditor.urls')),
     url(r'xadmin/', xadmin.site.urls),
@@ -31,8 +31,7 @@ urlpatterns = [
     url(r'^orgs/', include(('orgs.urls', 'orgs'), namespace='orgs.urls')),
     url(r'^courses/', include(('courses.urls', 'courses'), namespace='courses.urls')),
     url(r'^operations/', include(('operations.urls', 'operations'), namespace='operations.urls')),
-    url(r'media/(?P<path>.*)$', serve,
-        {'document_root': MEDIA_ROOT, }),
+    url(r'media/(?P<path>.*)$', serve, {'document_root': MEDIA_ROOT, }),
 ]
 
 handler404 = 'users.views.handler_404'

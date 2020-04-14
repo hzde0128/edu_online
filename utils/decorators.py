@@ -8,9 +8,9 @@ def login_decorator(func):
     如果登录，继续
     如果未登录，跳转到登录页面
     """
-    def inner(request, *args, **kwargs):
+    def inner(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return func(request, *args, **kwargs)
+            return func(self, request, *args, **kwargs)
         else:
             # 判断请求是否为ajax
             if request.is_ajax():

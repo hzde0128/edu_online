@@ -46,7 +46,8 @@
         <h1>修改密码</h1>
         <div class="close jsCloseDialog"><img src="{% static 'images/dig_close.png' %}"/></div>
         <div class="cont">
-            <form id="jsResetPwdForm" autocomplete="off">
+            <form id="jsResetPwdForm" method="post" action="{% url 'users:user_reset' %}" autocomplete="off">
+                {% csrf_token %}
                 <div class="box">
                     <span class="word2" >新&nbsp;&nbsp;密&nbsp;&nbsp;码</span>
                     <input type="password" id="pwd" name="password1" placeholder="6-20位非中文字符"/>
@@ -59,8 +60,6 @@
                 <div class="button">
                     <input id="jsResetPwdBtn" type="button" value="提交" />
                 </div>
-                <input type='hidden' name='csrfmiddlewaretoken' value='DaP7IUKm9FA9nELA9YUlYYWpyIDdCiIP' />
-            <input type='hidden' name='csrfmiddlewaretoken' value='799Y6iPeEDNSGvrTu3noBrO4MBLv6enY' />
             </form>
         </div>
     </div>

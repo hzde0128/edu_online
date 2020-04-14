@@ -37,11 +37,11 @@ def send_mail_code(email, send_type):
     # 发送邮件
     if send_type == 1:
         subject = '[在线教育网]欢迎注册'
-        message = '请点击以下链接激活您的账号：\nhttp://127.0.0.1:8000/users/user_active/' + code
+        message = '请点击以下链接激活您的账号(5分钟内有效)：\nhttp://127.0.0.1:8000/users/user_active/{0}'.format(code)
         send_mail(subject, message, EMAIL_FROM, [email])
     if send_type == 2:
         subject = '[在线教育网]重置密码'
-        message = '请点击以下链接重置您的密码：\nhttp://127.0.0.1:8000/users/user_reset/' + code
+        message = '请点击以下链接重置您的密码(5分钟内有效)：\nhttp://127.0.0.1:8000/users/user_reset/{0}'.format(code)
         send_mail(subject, message, EMAIL_FROM, [email])
     if send_type == 3:
         subject == '[在线教育网]更换邮箱'

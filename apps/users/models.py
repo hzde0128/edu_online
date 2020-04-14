@@ -15,7 +15,6 @@ class UserProfile(AbstractUser):
     gender = models.CharField(choices=(('男', '男'), ('女', '女')), verbose_name="用户性别", max_length=6, default='男')
     address = models.CharField(max_length=300, verbose_name="用户地址", null=True, blank=True)
     phone = models.CharField(max_length=11, null=True, blank=True, verbose_name="用户手机")
-    is_start = models.BooleanField(default=False, verbose_name="是否激活")
     add_time = models.DateTimeField(default=datetime.now, verbose_name="添加时间")
 
     def __str__(self):

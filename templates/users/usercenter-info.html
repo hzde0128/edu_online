@@ -15,7 +15,7 @@
             <div class="inforcon">
                 <div class="left" style="width:242px;">
                     <iframe id='frameFile' name='frameFile' style='display: none;'></iframe>
-                    <form class="clearfix" id="jsAvatarForm" enctype="multipart/form-data" autocomplete="off" method="post" action="{% url 'users:avator_upload' %}" target='frameFile'>
+                    <form class="clearfix" id="jsAvatarForm" enctype="multipart/form-data" autocomplete="off" method="post" action="{% url 'users:avatar_upload' %}" target='frameFile'>
                         {% csrf_token %}
                         <label class="changearea" for="avatarUp">
                             <span id="avatardiv" class="pic">

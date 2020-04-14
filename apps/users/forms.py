@@ -11,7 +11,7 @@ class UserRegisterForm(forms.Form):
         'min_length': '密码至少6位',
         'max_length': '密码不能超过20位',
     })
-    captcha = CaptchaField()
+    captcha = CaptchaField(error_messages={'invalid': '验证码错误'})
 
 
 class UserLoginForm(forms.Form):
@@ -31,7 +31,7 @@ class UserForgetForm(forms.Form):
     captcha = CaptchaField()
 
 
-class UserRegsetForm(forms.Form):
+class UserResetForm(forms.Form):
     password = forms.CharField(required=True, min_length=6, max_length=20, error_messages={
         'required': '密码必须填写',
         'min_length': '密码至少6位',
@@ -44,7 +44,7 @@ class UserRegsetForm(forms.Form):
     })
 
 
-class UserAvatorForm(forms.ModelForm):
+class UserAvatarForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ['image']

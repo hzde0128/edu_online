@@ -144,6 +144,8 @@
                     success: function (callback) {
                         if (callback.status == 'ok') {
                             $('#jsLeftBtn').text(callback.msg)
+                        } else if (callback.status == 'nologin') {
+                            window.location.href = '{% url 'users:user_login' %}'
                         } else {
                             alert(callback.msg)
                         }
@@ -163,6 +165,8 @@
                     success: function (callback) {
                         if (callback.status == 'ok') {
                             $('#jsRightBtn').text(callback.msg)
+                        } else if (callback.status == 'nologin'){
+                            window.location.href = '{% url 'users:user_login' %}'
                         } else {
                             alert(callback.msg)
                         }

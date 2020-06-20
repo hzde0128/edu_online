@@ -1,4 +1,4 @@
-django==2.2.12
+django==2.2.13
 django-crispy-forms==1.9.0
 mysqlclient==1.4.6
 mysql-connector==2.2.9

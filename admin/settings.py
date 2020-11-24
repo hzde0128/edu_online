@@ -26,6 +26,7 @@ SECRET_KEY = 'gosfmij+um909flcr&i^9i$(s_ss!ovqe5re0(c&l3p&z^cy+%'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+#DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -94,7 +95,7 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': 3306,
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': '12345678',
         'OPTIONS': {
            'init_command': 'SET default_storage_engine=INNODB',
         }
@@ -160,8 +161,8 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.163.com'
-EMAIL_PORT = '25'
-EMAIL_HOST_USER = 'hzde0128@163.com'
-EMAIL_HOST_PASSWORD = ''
+EMAIL_HOST = 'smtps://smtp.exmail.qq.com'
+EMAIL_PORT = '465'
+EMAIL_HOST_USER = 'ops@cloud-industry-delivery.site'
+EMAIL_HOST_PASSWORD = 'DE5fVkTCpHszdrWk'
 EMAIL_FROM = EMAIL_HOST_USER

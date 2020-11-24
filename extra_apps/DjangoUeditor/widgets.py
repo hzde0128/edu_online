@@ -38,8 +38,9 @@ class UEditorWidget(forms.Textarea):
 
         params = attrs.copy()
 
-        width = params.pop("width")
-        height = params.pop("height")
+        #print("the params is:!!!!!!",params)
+        width = params.pop("width", "")
+        height = params.pop("height", "")
         toolbars = params.pop("toolbars", "full")
         imagePath = params.pop("imagePath", "")
         filePath = params.pop("filePath", "")
